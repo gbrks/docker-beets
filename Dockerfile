@@ -4,7 +4,9 @@ ENV LANG en_US.UTF-8
 ENV BEETSDIR /config
 ENV USERID 1000
 
-RUN echo "nameserver 10.0.0.1" > /etc/resolv.conf
+# RUN echo "nameserver 10.0.0.1" > /etc/resolv.conf
+# dont do this - find out why resolf.conf is not being linked from host
+
 RUN pacman -Syu --noconfirm \ 
     beets \ 
     bash-completion \ 
