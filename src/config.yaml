@@ -1,59 +1,56 @@
-plugins: fetchart embedart convert scrub replaygain lastgenre chroma web
-directory: /opt/downloads/music
+plugins: fetchart embedart scrub lastgenre missing
+directory: /music/
 library: /config/musiclibrary.blb
-art_filename: albumart
+art_filename: cover
 threaded: yes
 original_date: no
 per_disc_numbering: no
-color: yes
 
-convert:
-    auto: no
-    ffmpeg: /usr/bin/ffmpeg
-    opts: -ab 320k -ac 2 -ar 48000
-    max_bitrate: 320
-    threads: 1
-    
+ui:
+    color: yes
+
 paths:
-    default: $albumartist/$album%aunique{}/$track - $title
-    singleton: Non-Album/$artist - $title
-    comp: Compilations/$album%aunique{}/$track - $title
-    albumtype_soundtrack: Soundtracks/$album/$track $title 
-        
+    default: Albums/$albumartist/$album%aunique{}/$track - $artist - $title
+    singleton: Individual\ Tracks/$artist - $title
+    comp: Compilations/$album%aunique{}/$track - $artist - $title
+    albumtype:soundtrack: Soundtracks/$album%aunique{}/$track - $artist - $title
+
+asciify_paths: yes
+
 import:
     write: yes
-    copy: no
-    move: yes
+    copy: yes
+    move: no
     resume: ask
-    incremental: yes
+    incremental: no
     quiet_fallback: skip
-    timid: no
+    timid: yes
     log: /config/beet.log
+    language: en
+    detail: yes
 
 lastgenre:
     auto: yes
+    canonical: no
     source: album
+    count: 3
 
 embedart:
     auto: yes
 
 fetchart:
     auto: yes
-    
-replaygain:
-    auto: no
 
 scrub:
-    auto: yes
+    auto: no
+
+missing:
+    format: $albumartist - $album - $track - $title
 
 replace:
+    '[\\/]': _
     '^\.': _
     '[\x00-\x1f]': _
     '[<>:"\?\*\|]': _
-    '[\xE8-\xEB]': e
-    '[\xEC-\xEF]': i
-    '[\xE2-\xE6]': a
-    '[\xF2-\xF6]': o
-    '[\xF8]': o
     '\.$': _
     '\s+$': ''

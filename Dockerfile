@@ -1,21 +1,26 @@
-FROM nfnty/arch-mini:latest
+FROM alpine:latest
+MAINTAINER Gavin Brooks <gavin@brks.io>
 
-ENV LANG en_US.UTF-8
+ENV VERSION v1.3.14
+
+# This points beets towards our external volume mount, for config and db files
 ENV BEETSDIR /config
-ENV USERID 1000
 
-RUN pacman -Syu --noconfirm --needed \ 
-    beets \ 
-    bash-completion \ 
-    python2-pylast python2-requests wget \
-  && (yes | pacman -Scc)
+RUN adduser -D -u 1000 beets users
 
-RUN mkdir -p /config
-ADD firstrun.sh /root/firstrun.sh
-RUN chmod +x /root/firstrun.sh && /root/firstrun.sh
+RUN apk add --update python py-pip && \
+    pip install -U pip && \
+    pip install -U beets requests pylast
 
-RUN useradd -g 100 -u $USERID -M -s /bin/bash beetuser
+# Script that user can run to populate a config file
+ADD src/init_config.sh /usr/local/bin/init_config.sh
+RUN chmod +x /usr/local/bin/init_config.sh
+ADD src/config.yaml /home/beets/config.yaml
 
-USER beetuser
+USER beets
 
-CMD ["/bin/bash"]
+VOLUME ["/config", "/music", "/working"]
+
+WORKDIR /working
+
+ENTRYPOINT ["/usr/bin/beet"]
