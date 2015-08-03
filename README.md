@@ -1,6 +1,7 @@
 # Beets
 
 Small, lightweight Alpine based Beets container.
+
 [![](https://badge.imagelayers.io/gbrks/beets:latest.svg)](https://imagelayers.io/?images=gbrks/beets:latest 'Get your own badge on imagelayers.io')
 
 ## Initial Configuration
@@ -29,6 +30,7 @@ docker run --rm -it \
 ```
 
 Where <beets command> is any command detailed in the [Beets CLI Reference](http://beets.readthedocs.org/en/latest/reference/cli.html).
+
 For example to import a folder:
 ```
 docker run --rm -it \
