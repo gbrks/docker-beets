@@ -12,8 +12,9 @@ ui:
 paths:
     default: Albums/$albumartist/$album%aunique{}/$track - $artist - $title
     singleton: Individual\ Tracks/$artist - $title
-    comp: Compilations/$album%aunique{}/$track - $artist - $title
     albumtype:soundtrack: Soundtracks/$album%aunique{}/$track - $artist - $title
+    comp: Compilations/$album%aunique{}/$track - $artist - $title
+    
 
 asciify_paths: yes
 
