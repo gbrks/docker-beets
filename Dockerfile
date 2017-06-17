@@ -1,7 +1,7 @@
 FROM alpine:latest
 MAINTAINER Gavin Brooks <gavin@brks.io>
 
-ENV VERSION v1.3.17
+ENV VERSION v1.4.4
 
 # This points beets towards our external volume mount, for config and db files
 ENV BEETSDIR /config
